@@ -1,8 +1,8 @@
 package license_client
 
 import (
-	"licensespring/go-sdk/core/models/request"
-	"licensespring/go-sdk/core/models/response"
+	"gitlab.com/l216/sdk/sdk-go/v1/core/models/request"
+	"gitlab.com/l216/sdk/sdk-go/v1/core/models/response"
 )
 
 func (c *LicenseClient) ActivateLicense(request request.ActivationRequest) (resp response.LicenseResponse, err error) {

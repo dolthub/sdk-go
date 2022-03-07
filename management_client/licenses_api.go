@@ -2,10 +2,7 @@ package management_client
 
 import (
 	"encoding/json"
-	"licensespring/go-sdk/core/client"
-	"licensespring/go-sdk/management_client/models"
-	"licensespring/go-sdk/management_client/models/request"
-	"licensespring/go-sdk/management_client/models/response"
+	"gitlab.com/l216/sdk/sdk-go/v1/core/client"
 )
 
 type LicensesApi struct {

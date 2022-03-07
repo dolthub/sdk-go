@@ -2,7 +2,7 @@ package management_client
 
 import (
 	"fmt"
-	"licensespring/go-sdk/core/configuration"
+	"gitlab.com/l216/sdk/sdk-go/v1/core/configuration"
 )
 
 type ManagementConfiguration struct {

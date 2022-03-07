@@ -1,4 +1,4 @@
-module licensespring/go-sdk
+module gitlab.com/l216/sdk/sdk-go/v1
 
 go 1.18
 

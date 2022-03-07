@@ -1,7 +1,7 @@
 package management_models
 
 import (
-	"licensespring/go-sdk/core/models"
+	"gitlab.com/l216/sdk/sdk-go/v1/core/models"
 	"time"
 )
 
