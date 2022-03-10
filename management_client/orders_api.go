@@ -2,8 +2,10 @@ package management_client
 
 import (
 	"encoding/json"
-	"gitlab.com/l216/sdk/sdk-go/v1/core/client"
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models/order"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/client"
+	management_models "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models"
+	management_request "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models/request"
+	management_response "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models/response"
 	"time"
 )
 
@@ -21,7 +23,7 @@ func (api *OrdersApi) GetOrder(id int64) (resp management_models.Order, err erro
 	return resp, err
 }
 
-func (api *OrdersApi) CreateOrder(request order.WebhookOrder) (resp management_response.CreateOrderResponse, err error) {
+func (api *OrdersApi) CreateOrder(request management_models.WebhookOrder) (resp management_response.CreateOrderResponse, err error) {
 	err = api.c.Post("orders/create_order", nil, request, &resp)
 	return resp, err
 }

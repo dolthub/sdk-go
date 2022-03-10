@@ -1,4 +1,4 @@
-package order
+package management_models
 
 type UserBasedLicense struct {
 	Email     string

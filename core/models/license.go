@@ -1,7 +1,6 @@
-package response
+package core_models
 
 import (
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models"
 	"time"
 )
 
@@ -10,8 +9,8 @@ type LicenseResponse struct {
 	ValidityPeriod    time.Time `json:"validity_period"`
 	MaintenancePeriod time.Time `json:"maintenance_period"`
 
-	LicenseType models.LicenseType `json:"license_type"`
-	LicenseKey  string             `json:"license_key"`
+	LicenseType LicenseType `json:"license_type"`
+	LicenseKey  string      `json:"license_key"`
 
 	IsTrial bool `json:"is_trial"`
 

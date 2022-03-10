@@ -1,7 +1,7 @@
-package order
+package management_models
 
 import (
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
 	"time"
 )
 
@@ -12,7 +12,7 @@ type OrderLicense struct {
 	ValidDuration           string
 	EnableMaintenancePeriod bool
 	MaintenanceDuration     string
-	LicenseType             models.LicenseType
+	LicenseType             core_models.LicenseType
 	ValidityPeriod          time.Time
 	ProductFeatures         []Feature
 	IsTrial                 bool

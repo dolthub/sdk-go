@@ -1,4 +1,4 @@
-package models
+package core_models
 
 type LicenseType string
 

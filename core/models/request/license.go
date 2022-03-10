@@ -1,4 +1,4 @@
-package request
+package core_request
 
 type LicenseRequest struct {
 	HardwareId string `json:"hardware_id"`

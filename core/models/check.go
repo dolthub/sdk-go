@@ -1,4 +1,4 @@
-package response
+package core_models
 
 type CheckResponse struct {
 	LicenseResponse

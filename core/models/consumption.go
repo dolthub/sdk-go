@@ -1,4 +1,4 @@
-package response
+package core_models
 
 type ConsumptionResponse struct {
 	MaxConsumptions   int  `json:"max_consumptions"`

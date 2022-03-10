@@ -1,7 +1,6 @@
 package management_models
 
 import (
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models/order"
 	"time"
 )
 
@@ -13,7 +12,7 @@ type Order struct {
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
 	ClientOrderId        string
-	Type                 order.OrderType
+	Type                 OrderType
 	IsTest               bool
 	IsTrial              bool
 	DownloadId           string

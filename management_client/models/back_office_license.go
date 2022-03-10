@@ -1,7 +1,7 @@
 package management_models
 
 import (
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
 	"time"
 )
 
@@ -28,7 +28,7 @@ type BackOfficeLicense struct {
 	TimesActivated          int
 	ValidDuration           string
 	ValidityPeriod          string
-	LicenseType             models.LicenseType
+	LicenseType             core_models.LicenseType
 	EnableMaintenancePeriod bool
 	MaintenanceDuration     bool
 	MaintenancePeriod       string

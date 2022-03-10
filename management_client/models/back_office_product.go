@@ -1,7 +1,7 @@
 package management_models
 
 import (
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
 	"time"
 )
 
@@ -29,7 +29,7 @@ type BackOfficeProduct struct {
 	IsFloatingCloud             bool
 	FloatingUsers               int
 	FloatingTimeout             int
-	DefaultLicenseType          models.LicenseType
+	DefaultLicenseType          core_models.LicenseType
 	IsUserLocked                bool
 	IsNodeLocked                bool
 	MaxConsumptions             int

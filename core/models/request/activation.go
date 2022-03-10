@@ -1,4 +1,4 @@
-package request
+package core_request
 
 type ActivationRequest struct {
 	LicenseRequest

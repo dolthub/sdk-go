@@ -1,4 +1,4 @@
-package response
+package core_models
 
 type FeatureConsumptionResponse struct {
 	ConsumptionResponse

@@ -1,7 +1,7 @@
-package order
+package management_models
 
 import (
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models/response"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
 	"time"
 )
 
@@ -14,7 +14,7 @@ type WebhookOrder struct {
 	Language       string
 	CampaignParams string
 	DownloadId     string
-	Customer       response.Customer
+	Customer       core_models.Customer
 	Items          []OrderItem
 	PreventVm      bool
 }

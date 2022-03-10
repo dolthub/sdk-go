@@ -1,56 +1,56 @@
 package license_client
 
 import (
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models/request"
-	"gitlab.com/l216/sdk/sdk-go/v1/core/models/response"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/models/request"
 )
 
-func (c *LicenseClient) ActivateLicense(request request.ActivationRequest) (resp response.LicenseResponse, err error) {
+func (c *LicenseClient) ActivateLicense(request core_request.ActivationRequest) (resp core_models.LicenseResponse, err error) {
 	err = c.c.Post("activate_license", nil, request, &resp)
 	return resp, err
 }
 
-func (c *LicenseClient) DeactivateLicense(request request.LicenseRequest) error {
+func (c *LicenseClient) DeactivateLicense(request core_request.LicenseRequest) error {
 	err := c.c.Post("deactivate_license", nil, request, nil)
 	return err
 }
 
-func (c *LicenseClient) CheckLicense(request request.ActivationRequest) (resp response.CheckResponse, err error) {
+func (c *LicenseClient) CheckLicense(request core_request.ActivationRequest) (resp core_models.CheckResponse, err error) {
 	err = c.c.Get("check_license", nil, request, &resp)
 	return resp, err
 }
 
-func (c *LicenseClient) AddConsumption(request request.ConsumptionRequest) (resp response.ConsumptionResponse, err error) {
+func (c *LicenseClient) AddConsumption(request core_request.ConsumptionRequest) (resp core_models.ConsumptionResponse, err error) {
 	err = c.c.Post("add_consumption", nil, request, &resp)
 	return resp, err
 }
 
-func (c *LicenseClient) AddFeatureConsumption(request request.FeatureConsumptionRequest) (resp response.FeatureConsumptionResponse, err error) {
+func (c *LicenseClient) AddFeatureConsumption(request core_request.FeatureConsumptionRequest) (resp core_models.FeatureConsumptionResponse, err error) {
 	err = c.c.Post("add_feature_consumption", nil, request, &resp)
 	return resp, err
 }
 
-func (c *LicenseClient) TrialKey(request request.TrialLicenseRequest) (resp response.TrialKeyResponse, err error) {
+func (c *LicenseClient) TrialKey(request core_request.TrialLicenseRequest) (resp core_models.TrialKeyResponse, err error) {
 	err = c.c.Get("trial_key", nil, request, &resp)
 	return resp, err
 }
 
-func (c *LicenseClient) ProductDetails(request request.ProductDetailsRequest) (resp response.ProductDetails, err error) {
+func (c *LicenseClient) ProductDetails(request core_request.ProductDetailsRequest) (resp core_models.ProductDetails, err error) {
 	err = c.c.Get("product_details", nil, request, &resp)
 	return resp, err
 }
 
-func (c *LicenseClient) TrackDeviceVariables(request request.DeviceVariablesRequest) error {
+func (c *LicenseClient) TrackDeviceVariables(request core_request.DeviceVariablesRequest) error {
 	err := c.c.Post("track_device_variables", nil, request, nil)
 	return err
 }
 
-func (c *LicenseClient) Versions(request request.LicenseRequest) (resp response.VersionsResponse, err error) {
+func (c *LicenseClient) Versions(request core_request.LicenseRequest) (resp core_models.VersionsResponse, err error) {
 	err = c.c.Get("versions", nil, request, &resp)
 	return resp, err
 }
 
-func (c *LicenseClient) InstallationFile(request request.LicenseRequest) (resp response.InstallationFileResponse, err error) {
+func (c *LicenseClient) InstallationFile(request core_request.LicenseRequest) (resp core_models.InstallationFileResponse, err error) {
 	err = c.c.Get("installation_file", nil, request, &resp)
 	return resp, err
 }

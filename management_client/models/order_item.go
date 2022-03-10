@@ -1,4 +1,4 @@
-package order
+package management_models
 
 type OrderItem struct {
 	ProductCode string
