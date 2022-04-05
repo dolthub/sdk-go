@@ -1,8 +1,7 @@
 package floating_client
 
 import (
-	"gitlab.com/l3178/sdk-go/v1/core/models"
-	floating_models "gitlab.com/l3178/sdk-go/v1/floating_client/models"
+	floating_models "gitlab.com/l3178/sdk-go/floating_client/models"
 	core_models "ls/sdk-go/core/models"
 )
 

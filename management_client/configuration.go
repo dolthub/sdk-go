@@ -2,7 +2,7 @@ package management_client
 
 import (
 	"fmt"
-	"gitlab.com/l3178/sdk-go/v1/core/configuration"
+	"gitlab.com/l3178/sdk-go/core/configuration"
 )
 
 type ManagementConfiguration struct {

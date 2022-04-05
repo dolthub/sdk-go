@@ -3,7 +3,7 @@ package client
 import (
 	"encoding/json"
 	"github.com/go-resty/resty/v2"
-	"gitlab.com/l3178/sdk-go/v1/core/configuration"
+	"gitlab.com/l3178/sdk-go/core/configuration"
 	"net/url"
 )
 
