@@ -2,10 +2,10 @@ package management_client
 
 import (
 	"encoding/json"
-	"gitlab.com/l3178/sdk/sdk-go/v1/core/client"
-	management_models "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models"
-	management_request "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models/request"
-	management_response "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models/response"
+	"gitlab.com/l3178/sdk-go/v1/core/client"
+	management_models "gitlab.com/l3178/sdk-go/v1/management_client/models"
+	management_request "gitlab.com/l3178/sdk-go/v1/management_client/models/request"
+	management_response "gitlab.com/l3178/sdk-go/v1/management_client/models/response"
 )
 
 type LicensesApi struct {

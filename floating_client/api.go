@@ -1,8 +1,9 @@
 package floating_client
 
 import (
-	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
-	floating_models "gitlab.com/l3178/sdk/sdk-go/v1/floating_client/models"
+	"gitlab.com/l3178/sdk-go/v1/core/models"
+	floating_models "gitlab.com/l3178/sdk-go/v1/floating_client/models"
+	core_models "ls/sdk-go/core/models"
 )
 
 func (c *FloatingClient) Register(request floating_models.FloatingRegistrationRequest) (resp core_models.LicenseResponse, err error) {
