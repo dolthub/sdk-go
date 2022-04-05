@@ -1,4 +1,4 @@
-module gitlab.com/l3178/sdk-go/v1
+module gitlab.com/l3178/sdk-go
 
 go 1.18
 
