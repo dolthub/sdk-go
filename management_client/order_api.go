@@ -2,9 +2,9 @@ package management_client
 
 import (
 	"encoding/json"
-	management_models "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models"
-	management_request "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models/request"
-	management_response "gitlab.com/l3178/sdk/sdk-go/v1/management_client/models/response"
+	management_models "gitlab.com/l3178/sdk-go/management_client/models"
+	management_request "gitlab.com/l3178/sdk-go/management_client/models/request"
+	management_response "gitlab.com/l3178/sdk-go/management_client/models/response"
 	"time"
 )
 
