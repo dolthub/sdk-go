@@ -1,7 +1,7 @@
 package management_models
 
 import (
-	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
+	"gitlab.com/l3178/sdk-go/core/models"
 	"time"
 )
 
