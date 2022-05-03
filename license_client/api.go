@@ -1,7 +1,7 @@
 package license_client
 
 import (
-	"gitlab.com/l3178/sdk/sdk-go/v1/core/models"
+	"gitlab.com/l3178/sdk-go/core/models"
 )
 
 func (c *LicenseClient) ActivateLicense(request ActivationRequest) (resp core_models.LicenseResponse, err error) {

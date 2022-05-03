@@ -1,7 +1,7 @@
 package floating_client
 
 import (
-	"gitlab.com/l3178/sdk/sdk-go/v1/core/configuration"
+	"gitlab.com/l3178/sdk-go/core/configuration"
 	"time"
 )
 

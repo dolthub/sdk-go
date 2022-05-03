@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
-	"gitlab.com/l3178/sdk/sdk-go/v1/core/configuration"
+	"gitlab.com/l3178/sdk-go/core/configuration"
 	"log"
 	"time"
 )

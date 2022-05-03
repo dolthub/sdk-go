@@ -2,7 +2,7 @@ package license_client
 
 import (
 	"github.com/sirupsen/logrus"
-	"gitlab.com/l3178/sdk/sdk-go/v1/license_client"
+	"gitlab.com/l3178/sdk-go/license_client"
 )
 
 func Configuration() {

@@ -1,7 +1,7 @@
 package license_client
 
 import (
-	core_request "gitlab.com/l3178/sdk/sdk-go/v1/core/models/request"
+	core_request "gitlab.com/l3178/sdk-go/core/models/request"
 )
 
 type ActivationRequest = core_request.ActivationRequest

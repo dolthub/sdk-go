@@ -2,7 +2,7 @@ package floating_client
 
 import (
 	"github.com/sirupsen/logrus"
-	"gitlab.com/l3178/sdk/sdk-go/v1/floating_client"
+	"gitlab.com/l3178/sdk-go/floating_client"
 )
 
 func Configuration() {

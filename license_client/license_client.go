@@ -1,7 +1,7 @@
 package license_client
 
 import (
-	"gitlab.com/l3178/sdk/sdk-go/v1/core/client"
+	"gitlab.com/l3178/sdk-go/core/client"
 )
 
 type LicenseClient struct {
