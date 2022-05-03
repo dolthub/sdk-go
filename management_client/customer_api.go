@@ -1,0 +1,3 @@
+package management_client
+
+type CustomerApi ManagementClient

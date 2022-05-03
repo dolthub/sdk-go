@@ -1,13 +1,35 @@
 package management_client
 
 import (
-	"strconv"
+	"gitlab.com/l3178/sdk/sdk-go/v1/core/client"
 )
 
-func idToParams(id int) map[string]string {
-	return id64ToParams(int64(id))
+type ManagementClient struct {
+	c *client.Client
 }
 
-func id64ToParams(id int64) map[string]string {
-	return map[string]string{"id": strconv.FormatInt(id, 10)}
+func (api ManagementClient) CustomerApi() *CustomerApi {
+	return &CustomerApi{api.c}
+}
+
+func (api ManagementClient) DeviceApi() *DeviceApi {
+	return &DeviceApi{api.c}
+}
+
+func (api ManagementClient) LicenseApi() *LicenseApi {
+	return &LicenseApi{api.c}
+}
+
+func (api ManagementClient) OrderApi() *OrderApi {
+	return &OrderApi{api.c}
+}
+
+func (api ManagementClient) ProductApi() *ProductApi {
+	return &ProductApi{api.c}
+}
+
+func NewManagementClient(config ManagementClientConfiguration) ManagementClient {
+	return ManagementClient{
+		c: client.NewClient(config),
+	}
 }

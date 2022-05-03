@@ -13,14 +13,10 @@ const (
 
 func (c *Client) buildHeaders() map[string]string {
 	date := time.Now()
-
 	headers := map[string]string{
-		DateHeader:     time.Now().Format(dateFormat),
-		AuthHeader:     c.createAuthHeader(date),
+		DateHeader:     date.Format(dateFormat),
+		AuthHeader:     c.config.AuthHeader(date),
 		"Content-Type": "application/json",
-	}
-	for key, value := range c.AdditionalHeaders {
-		headers[key] = value
 	}
 	return headers
 }

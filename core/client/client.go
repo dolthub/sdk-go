@@ -3,13 +3,15 @@ package client
 import (
 	"encoding/json"
 	"github.com/go-resty/resty/v2"
+	"github.com/pkg/errors"
 	"gitlab.com/l3178/sdk/sdk-go/v1/core/configuration"
-	"net/url"
+	"log"
+	"time"
 )
 
 type Client struct {
-	c *resty.Client
-	*configuration.CoreConfiguration
+	c      *resty.Client
+	config configuration.Config
 }
 
 func (c *Client) Get(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
@@ -54,34 +56,43 @@ func (c *Client) Delete(endpoint string, pathParams map[string]string, response 
 	return c.send(endpoint, resty.MethodDelete, req, response)
 }
 
-func (c *Client) send(url, method string, req *resty.Request, response interface{}) error {
-	req.URL = url
+func (c *Client) send(endpoint, method string, req *resty.Request, response interface{}) error {
+	req.URL = c.buildUrl(endpoint)
+	log.Print(req.URL)
 	req.Method = method
 	resp, err := req.Send()
 	if err != nil {
-		return err
+		return errors.New(err.Error())
+	}
+
+	if !isJSON(resp.Body()) {
+		return nil
 	}
 
 	err = json.Unmarshal(resp.Body(), response)
 	if err != nil {
-		return err
+		return errors.New(err.Error())
 	}
 
 	return nil
 }
 
-func NewClient(coreConfig *configuration.CoreConfiguration) *Client {
-	return &Client{
-		c:                 newResty(*coreConfig),
-		CoreConfiguration: coreConfig,
-	}
+func isJSON(str []byte) bool {
+	var js json.RawMessage
+	return json.Unmarshal(str, &js) == nil
 }
 
-func newResty(config configuration.CoreConfiguration) *resty.Client {
-	c := resty.New()
-	u, _ := url.Parse(config.UrlBase)
-	u, _ = u.Parse(config.EndpointPrefix)
-	c.BaseURL = u.String()
+func (c *Client) buildUrl(endpoint string) string {
+	return c.config.UrlPrefix() + endpoint
+}
 
-	return c
+func NewClient(config configuration.Config) *Client {
+	requestConfig := config.GetRequestConfig()
+	c := resty.New()
+	c.SetRetryCount(requestConfig.RetryCount)
+	c.SetTimeout(time.Duration(requestConfig.RequestTimeout) * time.Second)
+	return &Client{
+		c:      c,
+		config: config,
+	}
 }
