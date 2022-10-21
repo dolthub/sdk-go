@@ -45,6 +45,16 @@ func (config LicenseClientConfiguration) AuthHeader(date time.Time) string {
 		algorithm, headers, encodedSignature, config.ApiKey)
 }
 
+func (config LicenseClientConfiguration) OfflineLicenseSignature(date time.Time, licenseKey string) string {
+	dateStr := date.Format(dateFormat)
+	signatureString := fmt.Sprintf("%s\ndate: %s\n%s\n%s\n%s",
+		signaturePrefix, dateStr, licenseKey, config.HardwareId, config.ApiKey)
+
+	encoder := hmac.New(sha256.New, []byte(config.SharedKey))
+	encoder.Write([]byte(signatureString))
+	return base64.StdEncoding.EncodeToString(encoder.Sum(nil))
+}
+
 func (config LicenseClientConfiguration) UrlPrefix() string {
 	return config.CoreConfiguration.UrlPrefix()
 }

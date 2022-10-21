@@ -3,5 +3,5 @@ package core_request
 type DeviceVariablesRequest struct {
 	LicenseRequest
 
-	Variables map[string]string `json:"variables"`
+	Variables map[string]string
 }

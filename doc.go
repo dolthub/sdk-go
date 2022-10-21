@@ -1,4 +1,4 @@
-package sdk_go
+package main
 
 /*
 sdk-go is the official Go SDK for LicenseSpring.

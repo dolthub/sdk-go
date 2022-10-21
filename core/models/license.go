@@ -5,84 +5,94 @@ import (
 )
 
 type LicenseResponse struct {
-	LicenseSignature  string    `json:"license_signature"`
-	ValidityPeriod    time.Time `json:"validity_period"`
-	MaintenancePeriod time.Time `json:"maintenance_period"`
+	LicenseSignature  string
+	ValidityPeriod    time.Time
+	MaintenancePeriod time.Time
 
-	LicenseType LicenseType `json:"license_type"`
-	LicenseKey  string      `json:"license_key"`
+	LicenseType LicenseType
+	LicenseKey  string
 
-	IsTrial bool `json:"is_trial"`
+	IsTrial bool
 
-	ProductFeatures []ProductFeature `json:"product_features"`
+	ProductFeatures []ProductFeature
 
-	CustomFields []CustomFields `json:"custom_fields"`
+	CustomFields []CustomFields
 
-	MaxActivations int `json:"max_activations"`
-	TimesActivated int `json:"times_activated"`
+	MaxActivations int
+	TimesActivated int
 
-	Customer Customer `json:"customer"`
+	Customer Customer
 
-	MaxConsumptions   int    `json:"max_consumptions"`
-	TotalConsumptions int    `json:"total_consumptions"`
-	AllowOverages     bool   `json:"allow_overages"`
-	MaxOverages       int    `json:"max_overages"`
-	ResetConsumption  bool   `json:"reset_consumption"`
-	ConsumptionPeriod string `json:"consumption_period"`
+	MaxConsumptions   int
+	TotalConsumptions int
+	AllowOverages     bool
+	MaxOverages       int
+	ResetConsumption  bool
+	ConsumptionPeriod string
 
-	PreventVm            bool `json:"prevent_vm"`
-	IsFloatingCloud      bool `json:"is_floating_cloud"`
-	IsFloating           bool `json:"is_floating"`
-	FloatingTimeout      int  `json:"floating_timeout"`
-	FloatingUsers        int  `json:"floating_users"`
-	FloatingInUseDevices int  `json:"floating_in_use_devices"`
-	FloatingInUse        int  `json:"floating_in_use"`
+	PreventVm            bool
+	IsFloatingCloud      bool
+	IsFloating           bool
+	FloatingTimeout      int
+	FloatingUsers        int
+	FloatingInUseDevices int
+	FloatingInUse        int
 
-	User User `json:"user"`
+	User User
 
-	ProductDetails ProductDetails `json:"product_details"`
+	ProductDetails ProductDetails
 }
 
 type ProductFeature struct {
-	Code              string `json:"code"`
-	Name              string `json:"name"`
-	FeatureType       string `json:"feature_type"`
-	ExpiryDate        string `json:"expiry_date"`
-	MaxConsumption    int    `json:"max_consumption"`
-	TotalConsumptions int    `json:"total_consumptions"`
-	AllowOverages     bool   `json:"allow_overages"`
-	MaxOverages       int    `json:"max_overages"`
+	Code              string
+	Name              string
+	FeatureType       string
+	ExpiryDate        string
+	MaxConsumption    int
+	TotalConsumptions int
+	AllowOverages     bool
+	MaxOverages       int
 }
 
 type CustomFields struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
+	Name  string
+	Value string
 }
 
 type Customer struct {
-	Email       string `json:"email"`
-	CompanyName string `json:"company_name"`
-	Reference   string `json:"reference"`
-	Phone       string `json:"phone"`
-	FirstName   string `json:"first_name"`
-	LastName    string `json:"last_name"`
+	Email       string
+	FirstName   string
+	LastName    string
+	CompanyName string
+	Phone       string
+	Reference   string
+	Address     string
+	Postcode    string
+	City        string
+	Country     string
+	State       string
 }
 
 type User struct {
-	Id                int    `json:"id"`
-	Email             string `json:"email"`
-	FirstName         string `json:"first_name"`
-	LastName          string `json:"last_name"`
-	PhoneNumber       string `json:"phone_number"`
-	IsInitialPassword bool   `json:"is_initial_password"`
+	Id                int
+	Email             string
+	IsActive          bool
+	FirstName         string
+	LastName          string
+	PhoneNumber       string
+	IsInitialPassword bool
+	InitialPassword   string
+	LicenseId         int64
+	OrderStoreId      string
+	OrderId           int64
 }
 
 type ProductDetails struct {
-	ProductId           int64  `json:"product_id"`
-	ProductName         string `json:"product_name"`
-	ShortCode           string `json:"short_code"`
-	TrialDays           int    `json:"trial_days"`
-	AuthorizationMethod string `json:"authorization_method"`
-	AllowOverages       bool   `json:"allow_overages"`
-	MaxOverages         int    `json:"max_overages"`
+	ProductId           int64
+	ProductName         string
+	ShortCode           string
+	TrialDays           int
+	AuthorizationMethod string
+	AllowOverages       bool
+	MaxOverages         int
 }

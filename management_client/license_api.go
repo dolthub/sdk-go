@@ -1,7 +1,6 @@
 package management_client
 
 import (
-	"encoding/json"
 	management_models "gitlab.com/l3178/sdk-go/management_client/models"
 	management_request "gitlab.com/l3178/sdk-go/management_client/models/request"
 	management_response "gitlab.com/l3178/sdk-go/management_client/models/response"
@@ -26,8 +25,7 @@ func (api *LicenseApi) DisableLicense(id int64) (resp management_response.Respon
 	return resp, err
 }
 func (api *LicenseApi) DisableAllLicenses(ids []int64) (resp management_response.Response, err error) {
-	req, _ := json.Marshal(ids)
-	err = api.c.Post("licenses/disable_bulk", nil, req, &resp)
+	err = api.c.Post("licenses/disable_bulk", nil, ids, &resp)
 	return resp, err
 }
 func (api *LicenseApi) ResetLicense(id int64) (resp management_response.Response, err error) {

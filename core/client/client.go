@@ -5,7 +5,6 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"gitlab.com/l3178/sdk-go/core/configuration"
-	"log"
 	"time"
 )
 
@@ -15,7 +14,8 @@ type Client struct {
 }
 
 func (c *Client) Get(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
-	jsonValue, err := json.Marshal(data)
+	params := SnakeCaseEncode(data)
+	jsonValue, err := json.Marshal(params)
 	if err != nil {
 		return err
 	}
@@ -34,17 +34,19 @@ func (c *Client) Get(endpoint string, pathParams map[string]string, data interfa
 }
 
 func (c *Client) Post(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
+	body := SnakeCaseEncode(data)
 	req := c.c.R().
 		SetPathParams(pathParams).
-		SetBody(data).
+		SetBody(body).
 		SetHeaders(c.buildHeaders())
 	return c.send(endpoint, resty.MethodPost, req, response)
 }
 
 func (c *Client) Patch(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
+	body := SnakeCaseEncode(data)
 	req := c.c.R().
 		SetPathParams(pathParams).
-		SetBody(data).
+		SetBody(body).
 		SetHeaders(c.buildHeaders())
 	return c.send(endpoint, resty.MethodPatch, req, response)
 }
@@ -58,7 +60,6 @@ func (c *Client) Delete(endpoint string, pathParams map[string]string, response 
 
 func (c *Client) send(endpoint, method string, req *resty.Request, response interface{}) error {
 	req.URL = c.buildUrl(endpoint)
-	log.Print(req.URL)
 	req.Method = method
 	resp, err := req.Send()
 	if err != nil {

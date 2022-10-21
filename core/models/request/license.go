@@ -1,7 +1,7 @@
 package core_request
 
 type LicenseRequest struct {
-	HardwareId string `json:"hardware_id"`
-	Product    string `json:"product"`
+	HardwareId string
+	Product    string
 	Auth
 }

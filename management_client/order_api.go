@@ -1,7 +1,6 @@
 package management_client
 
 import (
-	"encoding/json"
 	management_models "gitlab.com/l3178/sdk-go/management_client/models"
 	management_request "gitlab.com/l3178/sdk-go/management_client/models/request"
 	management_response "gitlab.com/l3178/sdk-go/management_client/models/response"
@@ -26,18 +25,23 @@ func (api *OrderApi) CreateOrder(request management_models.WebhookOrder) (resp m
 }
 
 func (api *OrderApi) ExportToCsv(from, to time.Time) (resp management_response.Response, err error) {
-	req, _ := json.Marshal(map[string]interface{}{
-		"from": from,
-		"to":   to,
-	})
+	req := struct {
+		From string
+		To   string
+	}{
+		From: from.Format("2006-01-02"),
+		To:   to.Format("2006-01-02"),
+	}
 	err = api.c.Get("orders/export", nil, req, &resp)
 	return resp, err
 }
 
 func (api *OrderApi) ExportToCsvRange(r management_models.Range) (resp management_response.Response, err error) {
-	req, _ := json.Marshal(map[string]interface{}{
-		"range": r,
-	})
+	req := struct {
+		Range string
+	}{
+		Range: string(r),
+	}
 	err = api.c.Get("orders/export", nil, req, &resp)
 	return resp, err
 }

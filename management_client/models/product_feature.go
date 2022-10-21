@@ -5,16 +5,16 @@ import (
 )
 
 type ProductFeature struct {
-	Id                int64     `json:"id"`
-	CreatedAt         time.Time `json:"createdAt"`
-	UpdatedAt         time.Time `json:"updatedAt"`
-	Name              string    `json:"name"`
-	Code              string    `json:"code"`
-	IsDeleted         bool      `json:"isDeleted"`
-	FeatureType       string    `json:"featureType"`
-	MaxConsumption    int       `json:"maxConsumption"`
-	AllowOverages     bool      `json:"allowOverages"`
-	MaxOverages       int       `json:"maxOverages"`
-	ResetConsumption  bool      `json:"resetConsumption"`
-	ConsumptionPeriod string    `json:"consumptionPeriod"`
+	Id                int64
+	CreatedAt         time.Time
+	UpdatedAt         time.Time
+	Name              string
+	Code              string
+	IsDeleted         bool
+	FeatureType       string
+	MaxConsumption    int
+	AllowOverages     bool
+	MaxOverages       int
+	ResetConsumption  bool
+	ConsumptionPeriod string
 }
