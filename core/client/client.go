@@ -5,6 +5,8 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"gitlab.com/l3178/sdk-go/core/configuration"
+	"log"
+	"net/http"
 	"time"
 )
 
@@ -58,6 +60,11 @@ func (c *Client) Delete(endpoint string, pathParams map[string]string, response 
 	return c.send(endpoint, resty.MethodDelete, req, response)
 }
 
+type errorResponse struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+}
+
 func (c *Client) send(endpoint, method string, req *resty.Request, response interface{}) error {
 	req.URL = c.buildUrl(endpoint)
 	req.Method = method
@@ -66,11 +73,25 @@ func (c *Client) send(endpoint, method string, req *resty.Request, response inte
 		return errors.New(err.Error())
 	}
 
+	if resp.StatusCode() != http.StatusOK {
+		var errResp errorResponse
+		err = json.Unmarshal(resp.Body(), &errResp)
+		if err != nil {
+			log.Panic(err)
+		}
+		return errors.New(errResp.Message)
+	}
+
 	if !isJSON(resp.Body()) {
 		return nil
 	}
 
-	err = json.Unmarshal(resp.Body(), response)
+	jsn, err := SnakeCaseDecode(resp.Body())
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(jsn, &response)
 	if err != nil {
 		return errors.New(err.Error())
 	}
