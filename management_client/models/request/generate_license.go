@@ -1,6 +1,6 @@
 package management_request
 
 type GenerateLicenseRequest struct {
-	Product  string
-	Quantity int
+	Product  string `json:"product,omitempty"`
+	Quantity int    `json:"quantity,omitempty"`
 }

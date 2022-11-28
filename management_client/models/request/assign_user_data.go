@@ -1,6 +1,6 @@
 package management_request
 
 type AssignUserData struct {
-	Email     string
-	IsManager bool
+	Email     string `json:"email,omitempty"`
+	IsManager bool   `json:"is_manager,omitempty"`
 }

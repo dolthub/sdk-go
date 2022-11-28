@@ -3,6 +3,6 @@ package core_request
 type FeatureConsumptionRequest struct {
 	LicenseRequest
 
-	Feature      string
-	Consumptions int `json:"consumptions,omitempty"`
+	Feature      string `json:"feature,omitempty"`
+	Consumptions int    `json:"consumptions,omitempty"`
 }

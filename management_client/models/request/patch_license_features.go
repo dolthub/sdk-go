@@ -1,5 +1,5 @@
 package management_request
 
 type PatchLicenseFeaturesRequest struct {
-	ProductFeatures []LicenseFeaturePatch
+	ProductFeatures []LicenseFeaturePatch `json:"product_features,omitempty"`
 }

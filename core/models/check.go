@@ -4,7 +4,7 @@ type CheckResponse struct {
 	LicenseResponse
 	InstallationFileResponse
 
-	LicenseActive  bool
-	LicenseEnabled bool
-	IsExpired      bool
+	LicenseActive  bool `json:"license_active,omitempty"`
+	LicenseEnabled bool `json:"license_enabled,omitempty"`
+	IsExpired      bool `json:"is_expired,omitempty"`
 }

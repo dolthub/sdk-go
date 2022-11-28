@@ -8,7 +8,7 @@ import (
 
 const (
 	baseUrl   = "https://saas.licensespring.com"
-	apiPrefix = "/api/v1"
+	apiPrefix = "/api/v1/"
 )
 
 type ManagementClientConfiguration struct {

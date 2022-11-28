@@ -1,6 +1,6 @@
 package management_models
 
 type OrderItem struct {
-	ProductCode string
-	Licenses    []OrderLicense
+	ProductCode string         `json:"product_code,omitempty"`
+	Licenses    []OrderLicense `json:"licenses,omitempty"`
 }

@@ -1,5 +1,5 @@
 package management_request
 
 type UnassignRequest struct {
-	LicenseUserId int
+	LicenseUserId int `json:"license_user_id,omitempty"`
 }

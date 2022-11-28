@@ -16,8 +16,7 @@ type Client struct {
 }
 
 func (c *Client) Get(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
-	params := SnakeCaseEncode(data)
-	jsonValue, err := json.Marshal(params)
+	jsonValue, err := json.Marshal(data)
 	if err != nil {
 		return err
 	}
@@ -36,19 +35,17 @@ func (c *Client) Get(endpoint string, pathParams map[string]string, data interfa
 }
 
 func (c *Client) Post(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
-	body := SnakeCaseEncode(data)
 	req := c.c.R().
 		SetPathParams(pathParams).
-		SetBody(body).
+		SetBody(data).
 		SetHeaders(c.buildHeaders())
 	return c.send(endpoint, resty.MethodPost, req, response)
 }
 
 func (c *Client) Patch(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
-	body := SnakeCaseEncode(data)
 	req := c.c.R().
 		SetPathParams(pathParams).
-		SetBody(body).
+		SetBody(data).
 		SetHeaders(c.buildHeaders())
 	return c.send(endpoint, resty.MethodPatch, req, response)
 }
@@ -86,12 +83,7 @@ func (c *Client) send(endpoint, method string, req *resty.Request, response inte
 		return nil
 	}
 
-	jsn, err := SnakeCaseDecode(resp.Body())
-	if err != nil {
-		return err
-	}
-
-	err = json.Unmarshal(jsn, &response)
+	err = json.Unmarshal(resp.Body(), &response)
 	if err != nil {
 		return errors.New(err.Error())
 	}

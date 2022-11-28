@@ -1,3 +1,6 @@
+28.11.2022. v1.0.7:
+- Serialization/deserialization fixes
+
 15.11.2022. v1.0.6:
 - Encoding/decoding improvements
 

@@ -5,11 +5,11 @@ import (
 )
 
 type BackOfficeOrderItem struct {
-	Id        int
-	ProductId string
-	Licenses  []BackOfficeLicense
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Order     int64
-	Product   int64
+	Id        int                 `json:"id,omitempty"`
+	ProductId string              `json:"product_id,omitempty"`
+	Licenses  []BackOfficeLicense `json:"licenses,omitempty"`
+	CreatedAt time.Time           `json:"created_at"`
+	UpdatedAt time.Time           `json:"updated_at"`
+	Order     int64               `json:"order,omitempty"`
+	Product   int64               `json:"product,omitempty"`
 }

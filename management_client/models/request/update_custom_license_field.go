@@ -1,5 +1,5 @@
 package management_request
 
 type UpdateCustomLicenseFieldRequest struct {
-	Value string
+	Value string `json:"value,omitempty"`
 }

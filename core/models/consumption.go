@@ -1,8 +1,8 @@
 package core_models
 
 type ConsumptionResponse struct {
-	MaxConsumptions   int
-	TotalConsumptions int
-	AllowOverages     bool
-	MaxOverages       int
+	MaxConsumptions   int  `json:"max_consumptions,omitempty"`
+	TotalConsumptions int  `json:"total_consumptions,omitempty"`
+	AllowOverages     bool `json:"allow_overages,omitempty"`
+	MaxOverages       int  `json:"max_overages,omitempty"`
 }

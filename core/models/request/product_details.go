@@ -1,5 +1,5 @@
 package core_request
 
 type ProductDetailsRequest struct {
-	Product string
+	Product string `json:"product,omitempty"`
 }

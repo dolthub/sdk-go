@@ -1,5 +1,5 @@
 package management_response
 
 type Response struct {
-	Message string
+	Message string `json:"message,omitempty"`
 }

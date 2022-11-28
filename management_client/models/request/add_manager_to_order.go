@@ -1,6 +1,6 @@
 package management_request
 
 type AddManagerToOrderRequest struct {
-	Email    string
-	Password string
+	Email    string `json:"email,omitempty"`
+	Password string `json:"password,omitempty"`
 }

@@ -1,6 +1,6 @@
 package management_response
 
 type LicenseAssignmentResponse struct {
-	NewPassword string
-	Message     string
+	NewPassword string `json:"new_password,omitempty"`
+	Message     string `json:"message,omitempty"`
 }

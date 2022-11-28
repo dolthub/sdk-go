@@ -5,42 +5,42 @@ import (
 )
 
 type LicenseResponse struct {
-	LicenseSignature  string
-	ValidityPeriod    time.Time
-	MaintenancePeriod time.Time
+	LicenseSignature  string    `json:"license_signature,omitempty"`
+	ValidityPeriod    time.Time `json:"validity_period"`
+	MaintenancePeriod time.Time `json:"maintenance_period"`
 
-	LicenseType LicenseType
-	LicenseKey  string
+	LicenseType LicenseType `json:"license_type,omitempty"`
+	LicenseKey  string      `json:"license_key,omitempty"`
 
-	IsTrial bool
+	IsTrial bool `json:"is_trial,omitempty"`
 
-	ProductFeatures []ProductFeature
+	ProductFeatures []ProductFeature `json:"product_features,omitempty"`
 
-	CustomFields []CustomFields
+	CustomFields []CustomFields `json:"custom_fields,omitempty"`
 
-	MaxActivations int
-	TimesActivated int
+	MaxActivations int `json:"max_activations,omitempty"`
+	TimesActivated int `json:"times_activated,omitempty"`
 
-	Customer Customer
+	Customer Customer `json:"customer"`
 
-	MaxConsumptions   int
-	TotalConsumptions int
-	AllowOverages     bool
-	MaxOverages       int
-	ResetConsumption  bool
-	ConsumptionPeriod string
+	MaxConsumptions   int    `json:"max_consumptions,omitempty"`
+	TotalConsumptions int    `json:"total_consumptions,omitempty"`
+	AllowOverages     bool   `json:"allow_overages,omitempty"`
+	MaxOverages       int    `json:"max_overages,omitempty"`
+	ResetConsumption  bool   `json:"reset_consumption,omitempty"`
+	ConsumptionPeriod string `json:"consumption_period,omitempty"`
 
-	PreventVm            bool
-	IsFloatingCloud      bool
-	IsFloating           bool
-	FloatingTimeout      int
-	FloatingUsers        int
-	FloatingInUseDevices int
-	FloatingInUse        int
+	PreventVm            bool `json:"prevent_vm,omitempty"`
+	IsFloatingCloud      bool `json:"is_floating_cloud,omitempty"`
+	IsFloating           bool `json:"is_floating,omitempty"`
+	FloatingTimeout      int  `json:"floating_timeout,omitempty"`
+	FloatingUsers        int  `json:"floating_users,omitempty"`
+	FloatingInUseDevices int  `json:"floating_in_use_devices,omitempty"`
+	FloatingInUse        bool `json:"floating_in_use,omitempty"`
 
-	User User
+	User User `json:"user"`
 
-	ProductDetails ProductDetails
+	ProductDetails ProductDetails `json:"product_details"`
 }
 
 type ProductFeature struct {

@@ -122,7 +122,7 @@ func (c *LicenseClient) ChangePassword(request ChangePasswordRequest) error {
 	return err
 }
 
-func (c *LicenseClient) Versions(request LicenseRequest) (resp VersionsResponse, err error) {
+func (c *LicenseClient) Versions(request LicenseRequest) (resp []Version, err error) {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
 	err = c.c.Get("versions", nil, request, &resp)

@@ -1,7 +1,7 @@
 package management_request
 
 type SearchProductCustomFieldsRequest struct {
-	Limit   int
-	Offset  int
-	Product int64
+	Limit   int   `json:"limit,omitempty"`
+	Offset  int   `json:"offset,omitempty"`
+	Product int64 `json:"product,omitempty"`
 }

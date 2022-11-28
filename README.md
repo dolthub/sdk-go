@@ -8,10 +8,6 @@ This is the official Go SDK for LicenseSpring.
 
 If you want to install a specific version, see the list of versions [here](https://gitlab.com/l3178/sdk-go/-/tags).
 
-## Examples
-
-This repository contains examples in [examples folder](_examples).
-
 ## How to use
 
 This SDK contains 3 different modules:

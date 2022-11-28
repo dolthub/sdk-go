@@ -1,7 +1,7 @@
 package management_request
 
 type CreateLicenseCustomFieldRequest struct {
-	Value              string
-	License            int64
-	ProductCustomField int
+	Value              string `json:"value,omitempty"`
+	License            int64  `json:"license,omitempty"`
+	ProductCustomField int    `json:"product_custom_field,omitempty"`
 }

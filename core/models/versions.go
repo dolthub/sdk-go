@@ -5,6 +5,6 @@ type VersionsResponse struct {
 }
 
 type Version struct {
-	Version     string
-	ReleaseDate string
+	Version     string `json:"version,omitempty"`
+	ReleaseDate string `json:"release_date,omitempty"`
 }
