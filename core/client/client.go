@@ -103,6 +103,7 @@ func (c *Client) buildUrl(endpoint string) string {
 func NewClient(config configuration.Config) *Client {
 	requestConfig := config.GetRequestConfig()
 	c := resty.New()
+	c.Debug = true
 	c.SetRetryCount(requestConfig.RetryCount)
 	c.SetTimeout(time.Duration(requestConfig.RequestTimeout) * time.Second)
 	return &Client{

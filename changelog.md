@@ -1,3 +1,6 @@
+v1.0.8 - 3.2.2023.
+- Airgap implementation
+
 28.11.2022. v1.0.7:
 - Serialization/deserialization fixes
 

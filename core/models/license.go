@@ -5,6 +5,7 @@ import (
 )
 
 type LicenseResponse struct {
+	Id                int64     `json:"id,omitempty"`
 	LicenseSignature  string    `json:"license_signature,omitempty"`
 	ValidityPeriod    time.Time `json:"validity_period"`
 	MaintenancePeriod time.Time `json:"maintenance_period"`
