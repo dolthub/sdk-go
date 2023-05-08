@@ -45,55 +45,57 @@ type LicenseResponse struct {
 }
 
 type ProductFeature struct {
-	Code              string
-	Name              string
-	FeatureType       string
-	ExpiryDate        string
-	MaxConsumption    int
-	TotalConsumptions int
-	AllowOverages     bool
-	MaxOverages       int
+	Code              string `json:"code,omitempty"`
+	Name              string `json:"name,omitempty"`
+	FeatureType       string `json:"feature_type,omitempty"`
+	ExpiryDate        string `json:"expiry_date,omitempty"`
+	MaxConsumption    int    `json:"max_consumption,omitempty"`
+	TotalConsumptions int    `json:"total_consumptions,omitempty"`
+	AllowOverages     bool   `json:"allow_overages,omitempty"`
+	MaxOverages       int    `json:"max_overages,omitempty"`
+	ResetConsumption  bool   `json:"reset_consumption"`
+	ConsumptionPeriod string `json:"consumption_period"`
 }
 
 type CustomFields struct {
-	Name  string
-	Value string
+	Name  string `json:"name,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
 type Customer struct {
-	Email       string
-	FirstName   string
-	LastName    string
-	CompanyName string
-	Phone       string
-	Reference   string
-	Address     string
-	Postcode    string
-	City        string
-	Country     string
-	State       string
+	Email       string `json:"email,omitempty"`
+	FirstName   string `json:"first_name,omitempty"`
+	LastName    string `json:"last_name,omitempty"`
+	CompanyName string `json:"company_name,omitempty"`
+	Phone       string `json:"phone,omitempty"`
+	Reference   string `json:"reference,omitempty"`
+	Address     string `json:"address,omitempty"`
+	Postcode    string `json:"postcode,omitempty"`
+	City        string `json:"city,omitempty"`
+	Country     string `json:"country,omitempty"`
+	State       string `json:"state,omitempty"`
 }
 
 type User struct {
-	Id                int
-	Email             string
-	IsActive          bool
-	FirstName         string
-	LastName          string
-	PhoneNumber       string
-	IsInitialPassword bool
-	InitialPassword   string
-	LicenseId         int64
-	OrderStoreId      string
-	OrderId           int64
+	Id                int    `json:"id,omitempty"`
+	Email             string `json:"email,omitempty"`
+	IsActive          bool   `json:"is_active,omitempty"`
+	FirstName         string `json:"first_name,omitempty"`
+	LastName          string `json:"last_name,omitempty"`
+	PhoneNumber       string `json:"phone_number,omitempty"`
+	IsInitialPassword bool   `json:"is_initial_password,omitempty"`
+	InitialPassword   string `json:"initial_password,omitempty"`
+	LicenseId         int64  `json:"license_id,omitempty"`
+	OrderStoreId      string `json:"order_store_id,omitempty"`
+	OrderId           int64  `json:"order_id,omitempty"`
 }
 
 type ProductDetails struct {
-	ProductId           int64
-	ProductName         string
-	ShortCode           string
-	TrialDays           int
-	AuthorizationMethod string
-	AllowOverages       bool
-	MaxOverages         int
+	ProductId           int64  `json:"product_id,omitempty"`
+	ProductName         string `json:"product_name,omitempty"`
+	ShortCode           string `json:"short_code,omitempty"`
+	TrialDays           int    `json:"trial_days,omitempty"`
+	AuthorizationMethod string `json:"authorization_method,omitempty"`
+	AllowOverages       bool   `json:"allow_overages,omitempty"`
+	MaxOverages         int    `json:"max_overages,omitempty"`
 }

@@ -15,7 +15,6 @@ type FeatureConsumptionRequest = core_request.FeatureConsumptionRequest
 type TrialLicenseRequest = core_request.TrialLicenseRequest
 type ProductDetailsRequest = core_request.ProductDetailsRequest
 type DeviceVariablesRequest = core_request.DeviceVariablesRequest
-
 type Auth = core_request.Auth
 
 type OfflineRequest struct {

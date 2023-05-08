@@ -15,15 +15,15 @@ type Client struct {
 	config configuration.Config
 }
 
-func (c *Client) Get(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
+func (c *Client) Get(endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
 	jsonValue, err := json.Marshal(data)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	var encoded map[string]string
 	err = json.Unmarshal(jsonValue, &encoded)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	req := c.c.R().
@@ -31,30 +31,30 @@ func (c *Client) Get(endpoint string, pathParams map[string]string, data interfa
 		SetQueryParams(encoded).
 		SetHeaders(c.buildHeaders())
 
-	return c.send(endpoint, resty.MethodGet, req, response)
+	return c.send(endpoint, resty.MethodGet, req)
 }
 
-func (c *Client) Post(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
+func (c *Client) Post(endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
 	req := c.c.R().
 		SetPathParams(pathParams).
 		SetBody(data).
 		SetHeaders(c.buildHeaders())
-	return c.send(endpoint, resty.MethodPost, req, response)
+	return c.send(endpoint, resty.MethodPost, req)
 }
 
-func (c *Client) Patch(endpoint string, pathParams map[string]string, data interface{}, response interface{}) error {
+func (c *Client) Patch(endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
 	req := c.c.R().
 		SetPathParams(pathParams).
 		SetBody(data).
 		SetHeaders(c.buildHeaders())
-	return c.send(endpoint, resty.MethodPatch, req, response)
+	return c.send(endpoint, resty.MethodPatch, req)
 }
 
-func (c *Client) Delete(endpoint string, pathParams map[string]string, response interface{}) error {
+func (c *Client) Delete(endpoint string, pathParams map[string]string) ([]byte, error) {
 	req := c.c.R().
 		SetPathParams(pathParams).
 		SetHeaders(c.buildHeaders())
-	return c.send(endpoint, resty.MethodDelete, req, response)
+	return c.send(endpoint, resty.MethodDelete, req)
 }
 
 type errorResponse struct {
@@ -62,12 +62,12 @@ type errorResponse struct {
 	Message string `json:"message"`
 }
 
-func (c *Client) send(endpoint, method string, req *resty.Request, response interface{}) error {
+func (c *Client) send(endpoint, method string, req *resty.Request) ([]byte, error) {
 	req.URL = c.buildUrl(endpoint)
 	req.Method = method
 	resp, err := req.Send()
 	if err != nil {
-		return errors.New(err.Error())
+		return nil, errors.New(err.Error())
 	}
 
 	if resp.StatusCode() != http.StatusOK {
@@ -76,19 +76,14 @@ func (c *Client) send(endpoint, method string, req *resty.Request, response inte
 		if err != nil {
 			log.Panic(err)
 		}
-		return errors.New(errResp.Message)
+		return nil, errors.New(errResp.Message)
 	}
 
 	if !isJSON(resp.Body()) {
-		return nil
+		return nil, nil
 	}
 
-	err = json.Unmarshal(resp.Body(), &response)
-	if err != nil {
-		return errors.New(err.Error())
-	}
-
-	return nil
+	return resp.Body(), nil
 }
 
 func isJSON(str []byte) bool {
