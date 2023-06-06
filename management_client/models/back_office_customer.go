@@ -1,7 +1,7 @@
 package management_models
 
 type BackOfficeCustomer struct {
-	Id            int             `json:"id,omitempty"`
+	Id            int64           `json:"id,omitempty"`
 	TotalOrders   int             `json:"total_orders,omitempty"`
 	TotalLicenses int             `json:"total_licenses,omitempty"`
 	Labels        []CustomerLabel `json:"labels,omitempty"`

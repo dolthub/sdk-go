@@ -1,7 +1,7 @@
 package management_models
 
 type BackOfficeProductCustomField struct {
-	Id           int64  `json:"id,omitempty"`
+	Id           int    `json:"id,omitempty"`
 	Name         string `json:"name,omitempty"`
 	DataType     string `json:"data_type,omitempty"`
 	DefaultValue string `json:"default_value,omitempty"`

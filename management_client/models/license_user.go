@@ -5,7 +5,7 @@ import (
 )
 
 type LicenseUser struct {
-	Id                int64     `json:"id,omitempty"`
+	Id                int       `json:"id,omitempty"`
 	LastLogin         time.Time `json:"last_login"`
 	Email             string    `json:"email,omitempty"`
 	CreatedAt         time.Time `json:"created_at"`

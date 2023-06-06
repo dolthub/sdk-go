@@ -5,8 +5,8 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"gitlab.com/l3178/sdk-go/core/configuration"
+	"gitlab.com/l3178/sdk-go/core/helpers"
 	"log"
-	"net/http"
 	"time"
 )
 
@@ -16,19 +16,14 @@ type Client struct {
 }
 
 func (c *Client) Get(endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
-	jsonValue, err := json.Marshal(data)
-	if err != nil {
-		return nil, err
-	}
-	var encoded map[string]string
-	err = json.Unmarshal(jsonValue, &encoded)
+	values, err := helpers.Values(data)
 	if err != nil {
 		return nil, err
 	}
 
 	req := c.c.R().
 		SetPathParams(pathParams).
-		SetQueryParams(encoded).
+		SetQueryParamsFromValues(values).
 		SetHeaders(c.buildHeaders())
 
 	return c.send(endpoint, resty.MethodGet, req)
@@ -70,7 +65,7 @@ func (c *Client) send(endpoint, method string, req *resty.Request) ([]byte, erro
 		return nil, errors.New(err.Error())
 	}
 
-	if resp.StatusCode() != http.StatusOK {
+	if resp.StatusCode() > 299 {
 		var errResp errorResponse
 		err = json.Unmarshal(resp.Body(), &errResp)
 		if err != nil {
