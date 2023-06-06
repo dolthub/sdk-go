@@ -1,4 +1,4 @@
-package management_client
+package management
 
 import (
 	"github.com/stretchr/testify/assert"

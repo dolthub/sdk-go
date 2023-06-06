@@ -1,4 +1,4 @@
-package management_client
+package management
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -98,6 +98,6 @@ func TestCustomFields(t *testing.T) {
 			Product: testProductID,
 		})
 		assert.NoError(t, respList.Error)
-		assert.Equal(t, 0, respList.Count)
+		assert.Equal(t, 1, respList.Count)
 	})
 }

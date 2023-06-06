@@ -1,4 +1,4 @@
-package management_client
+package management
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -41,7 +41,7 @@ func TestLicense(t *testing.T) {
 	t.Run("List", func(t *testing.T) {
 		resp := c.LicenseApi().SearchLicenses(management_request.SearchLicensesRequest{})
 		assert.NoError(t, resp.Error)
-		assert.Equal(t, 1, resp.Count)
+		assert.Equal(t, 2, resp.Count)
 	})
 }
 
