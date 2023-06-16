@@ -1,32 +1,32 @@
-package core_request
+package auth
 
 type Auth struct {
 	KeyAuth
-	PasswordAuth
+	BasicAuth
 }
 
 type KeyAuth struct {
 	Key string `json:"license_key,omitempty"`
 }
 
-type PasswordAuth struct {
+type BasicAuth struct {
 	Username string `json:"username,omitempty"`
 	Password string `json:"password,omitempty"`
 }
 
-func (_ Auth) FromKey(licenseKey string) Auth {
+func FromKey(licenseKey string) Auth {
 	return Auth{
 		KeyAuth{
 			Key: licenseKey,
 		},
-		PasswordAuth{},
+		BasicAuth{},
 	}
 }
 
-func (_ Auth) FromUsername(username, password string) Auth {
+func FromUsername(username, password string) Auth {
 	return Auth{
 		KeyAuth{},
-		PasswordAuth{
+		BasicAuth{
 			Username: username,
 			Password: password,
 		},

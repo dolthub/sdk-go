@@ -1,6 +1,7 @@
 package management
 
 import (
+	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	management_request "gitlab.com/l3178/sdk-go/management_client/models/request"
@@ -12,8 +13,10 @@ func TestCustomer(t *testing.T) {
 
 	var id int64
 
+	ctx := context.Background()
+
 	t.Run("Create", func(t *testing.T) {
-		resp := c.CustomerApi().CreateCustomer(management_request.CreateCustomerRequest{
+		resp := c.CustomerApi().CreateCustomer(ctx, management_request.CreateCustomerRequest{
 			Email:     "ttt@ttt.ttt",
 			FirstName: "Test",
 		})
@@ -22,7 +25,7 @@ func TestCustomer(t *testing.T) {
 	})
 
 	t.Run("List", func(t *testing.T) {
-		resp := c.CustomerApi().ListCustomers(management_request.SearchCustomersRequest{
+		resp := c.CustomerApi().ListCustomers(ctx, management_request.SearchCustomersRequest{
 			Email: "ttt@ttt.ttt",
 		})
 		assert.NoError(t, resp.Error)
@@ -30,20 +33,20 @@ func TestCustomer(t *testing.T) {
 	})
 
 	t.Run("Edit", func(t *testing.T) {
-		resp := c.CustomerApi().EditCustomer(id, management_request.CreateCustomerRequest{
+		resp := c.CustomerApi().EditCustomer(ctx, id, management_request.CreateCustomerRequest{
 			LastName: "abcd",
 		})
 		assert.NoError(t, resp.Error)
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		resp := c.CustomerApi().ShowCustomer(id)
+		resp := c.CustomerApi().ShowCustomer(ctx, id)
 		assert.NoError(t, resp.Error)
 		assert.Equal(t, "abcd", resp.Value.LastName)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := c.CustomerApi().DeleteCustomer(id)
+		err := c.CustomerApi().DeleteCustomer(ctx, id)
 		assert.NoError(t, err)
 	})
 }
@@ -53,8 +56,10 @@ func TestCustomerLabels(t *testing.T) {
 
 	var id int64
 
+	ctx := context.Background()
+
 	t.Run("Create", func(t *testing.T) {
-		resp := c.CustomerApi().CreateCustomerLabel(management_request.CreateCustomerLabelRequest{
+		resp := c.CustomerApi().CreateCustomerLabel(ctx, management_request.CreateCustomerLabelRequest{
 			Label: "abcd",
 			Color: "efgh",
 		})
@@ -63,26 +68,26 @@ func TestCustomerLabels(t *testing.T) {
 	})
 
 	t.Run("List", func(t *testing.T) {
-		resp := c.CustomerApi().ListCustomerLabels(management_request.SearchRequest{})
+		resp := c.CustomerApi().ListCustomerLabels(ctx, management_request.SearchRequest{})
 		assert.NoError(t, resp.Error)
 		assert.Equal(t, 1, resp.Count)
 	})
 
 	t.Run("Edit", func(t *testing.T) {
-		resp := c.CustomerApi().EditCustomerLabel(id, management_request.CreateCustomerLabelRequest{
+		resp := c.CustomerApi().EditCustomerLabel(ctx, id, management_request.CreateCustomerLabelRequest{
 			Color: "1234",
 		})
 		assert.NoError(t, resp.Error)
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		resp := c.CustomerApi().ShowCustomerLabel(id)
+		resp := c.CustomerApi().ShowCustomerLabel(ctx, id)
 		assert.NoError(t, resp.Error)
 		assert.Equal(t, "1234", resp.Value.Color)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := c.CustomerApi().DeleteCustomerLabel(id)
+		err := c.CustomerApi().DeleteCustomerLabel(ctx, id)
 		assert.NoError(t, err)
 	})
 }
@@ -92,8 +97,10 @@ func TestCustomerAccounts(t *testing.T) {
 
 	var id int64
 
+	ctx := context.Background()
+
 	t.Run("Create", func(t *testing.T) {
-		resp := c.CustomerApi().CreateCustomerAccount(management_request.CreateCustomerAccountRequest{
+		resp := c.CustomerApi().CreateCustomerAccount(ctx, management_request.CreateCustomerAccountRequest{
 			Code: "abcd",
 			Name: "efgh",
 		})
@@ -102,26 +109,26 @@ func TestCustomerAccounts(t *testing.T) {
 	})
 
 	t.Run("List", func(t *testing.T) {
-		resp := c.CustomerApi().ListCustomerAccounts(management_request.SearchRequest{})
+		resp := c.CustomerApi().ListCustomerAccounts(ctx, management_request.SearchRequest{})
 		assert.NoError(t, resp.Error)
 		assert.Equal(t, 1, resp.Count)
 	})
 
 	t.Run("Edit", func(t *testing.T) {
-		resp := c.CustomerApi().EditCustomerAccount(id, management_request.CreateCustomerAccountRequest{
+		resp := c.CustomerApi().EditCustomerAccount(ctx, id, management_request.CreateCustomerAccountRequest{
 			Description: "test",
 		})
 		assert.NoError(t, resp.Error)
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		resp := c.CustomerApi().ShowCustomerAccount(id)
+		resp := c.CustomerApi().ShowCustomerAccount(ctx, id)
 		assert.NoError(t, resp.Error)
 		assert.Equal(t, "test", resp.Value.Description)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := c.CustomerApi().DeleteCustomerAccount(id)
+		err := c.CustomerApi().DeleteCustomerAccount(ctx, id)
 		assert.NoError(t, err)
 	})
 }

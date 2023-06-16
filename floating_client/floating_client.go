@@ -10,6 +10,6 @@ type FloatingClient struct {
 
 func NewFloatingClient(config FloatingClientConfiguration) *FloatingClient {
 	return &FloatingClient{
-		c: client.NewClient(config),
+		c: client.NewClient(config, config.Verbose),
 	}
 }

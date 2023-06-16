@@ -1,6 +1,7 @@
 package management_client
 
 import (
+	"context"
 	"gitlab.com/l3178/sdk-go/core/client"
 	management_models "gitlab.com/l3178/sdk-go/management_client/models"
 	management_request "gitlab.com/l3178/sdk-go/management_client/models/request"
@@ -11,93 +12,93 @@ type CustomerApi ManagementClient
 
 // CUSTOMERS
 
-func (api *CustomerApi) ListCustomers(request management_request.SearchCustomersRequest) management_response.SearchResult[management_models.BackOfficeCustomer] {
-	body, err := api.c.Get("customers", nil, request)
+func (api *CustomerApi) ListCustomers(ctx context.Context, request management_request.SearchCustomersRequest) management_response.SearchResult[management_models.BackOfficeCustomer] {
+	body, err := api.c.Get(ctx, "customers", nil, request)
 	return management_response.SearchResultFromJson[management_models.BackOfficeCustomer](body, err)
 }
 
-func (api *CustomerApi) ShowCustomer(id int64) client.Response[management_models.BackOfficeCustomer] {
-	body, err := api.c.Get("customers/{id}", id64ToParams(id), nil)
+func (api *CustomerApi) ShowCustomer(ctx context.Context, id int64) client.Response[management_models.BackOfficeCustomer] {
+	body, err := api.c.Get(ctx, "customers/{id}", id64ToParams(id), nil)
 	return client.NewResponse[management_models.BackOfficeCustomer](body, err)
 }
 
-func (api *CustomerApi) CreateCustomer(request management_request.CreateCustomerRequest) client.Response[management_models.BackOfficeCustomer] {
-	body, err := api.c.Post("customers", nil, request)
+func (api *CustomerApi) CreateCustomer(ctx context.Context, request management_request.CreateCustomerRequest) client.Response[management_models.BackOfficeCustomer] {
+	body, err := api.c.Post(ctx, "customers", nil, request)
 	return client.NewResponse[management_models.BackOfficeCustomer](body, err)
 }
 
-func (api *CustomerApi) EditCustomer(id int64, request management_request.CreateCustomerRequest) client.Response[management_models.BackOfficeCustomer] {
-	body, err := api.c.Patch("customers/{id}", id64ToParams(id), request)
+func (api *CustomerApi) EditCustomer(ctx context.Context, id int64, request management_request.CreateCustomerRequest) client.Response[management_models.BackOfficeCustomer] {
+	body, err := api.c.Patch(ctx, "customers/{id}", id64ToParams(id), request)
 	return client.NewResponse[management_models.BackOfficeCustomer](body, err)
 }
 
-func (api *CustomerApi) DeleteCustomer(id int64) error {
-	_, err := api.c.Delete("customers/{id}", id64ToParams(id))
+func (api *CustomerApi) DeleteCustomer(ctx context.Context, id int64) error {
+	_, err := api.c.Delete(ctx, "customers/{id}", id64ToParams(id))
 	return err
 }
 
 // CUSTOMER LABELS
 
-func (api *CustomerApi) ListCustomerLabels(request management_request.SearchRequest) management_response.SearchResult[management_models.CustomerLabel] {
-	body, err := api.c.Get("clabels", nil, request)
+func (api *CustomerApi) ListCustomerLabels(ctx context.Context, request management_request.SearchRequest) management_response.SearchResult[management_models.CustomerLabel] {
+	body, err := api.c.Get(ctx, "clabels", nil, request)
 	return management_response.SearchResultFromJson[management_models.CustomerLabel](body, err)
 }
 
-func (api *CustomerApi) ShowCustomerLabel(id int64) client.Response[management_models.CustomerLabel] {
-	body, err := api.c.Get("clabels/{id}", id64ToParams(id), nil)
+func (api *CustomerApi) ShowCustomerLabel(ctx context.Context, id int64) client.Response[management_models.CustomerLabel] {
+	body, err := api.c.Get(ctx, "clabels/{id}", id64ToParams(id), nil)
 	return client.NewResponse[management_models.CustomerLabel](body, err)
 }
 
-func (api *CustomerApi) CreateCustomerLabel(request management_request.CreateCustomerLabelRequest) client.Response[management_models.CustomerLabel] {
-	body, err := api.c.Post("clabels", nil, request)
+func (api *CustomerApi) CreateCustomerLabel(ctx context.Context, request management_request.CreateCustomerLabelRequest) client.Response[management_models.CustomerLabel] {
+	body, err := api.c.Post(ctx, "clabels", nil, request)
 	return client.NewResponse[management_models.CustomerLabel](body, err)
 }
 
-func (api *CustomerApi) EditCustomerLabel(id int64, request management_request.CreateCustomerLabelRequest) client.Response[management_models.CustomerLabel] {
-	body, err := api.c.Patch("clabels/{id}", id64ToParams(id), request)
+func (api *CustomerApi) EditCustomerLabel(ctx context.Context, id int64, request management_request.CreateCustomerLabelRequest) client.Response[management_models.CustomerLabel] {
+	body, err := api.c.Patch(ctx, "clabels/{id}", id64ToParams(id), request)
 	return client.NewResponse[management_models.CustomerLabel](body, err)
 }
 
-func (api *CustomerApi) DeleteCustomerLabel(id int64) error {
-	_, err := api.c.Delete("clabels/{id}", id64ToParams(id))
+func (api *CustomerApi) DeleteCustomerLabel(ctx context.Context, id int64) error {
+	_, err := api.c.Delete(ctx, "clabels/{id}", id64ToParams(id))
 	return err
 }
 
 // CUSTOMER LABEL MAPPING
 
-func (api *CustomerApi) AddLabelToCustomer(request management_models.CustomerLabelMapping) client.Response[management_models.CustomerLabelMapping] {
-	body, err := api.c.Post("customerclabels", nil, request)
+func (api *CustomerApi) AddLabelToCustomer(ctx context.Context, request management_models.CustomerLabelMapping) client.Response[management_models.CustomerLabelMapping] {
+	body, err := api.c.Post(ctx, "customerclabels", nil, request)
 	return client.NewResponse[management_models.CustomerLabelMapping](body, err)
 }
 
-func (api *CustomerApi) RemoveLabelFromCustomer(id int64) error {
-	_, err := api.c.Delete("customerclabels/{id}", id64ToParams(id))
+func (api *CustomerApi) RemoveLabelFromCustomer(ctx context.Context, id int64) error {
+	_, err := api.c.Delete(ctx, "customerclabels/{id}", id64ToParams(id))
 	return err
 }
 
 // CUSTOMER ACCOUNTS
 
-func (api *CustomerApi) ListCustomerAccounts(request management_request.SearchRequest) management_response.SearchResult[management_models.CustomerAccount] {
-	body, err := api.c.Get("customer-accounts", nil, request)
+func (api *CustomerApi) ListCustomerAccounts(ctx context.Context, request management_request.SearchRequest) management_response.SearchResult[management_models.CustomerAccount] {
+	body, err := api.c.Get(ctx, "customer-accounts", nil, request)
 	return management_response.SearchResultFromJson[management_models.CustomerAccount](body, err)
 }
 
-func (api *CustomerApi) ShowCustomerAccount(id int64) client.Response[management_models.CustomerAccount] {
-	body, err := api.c.Get("customer-accounts/{id}", id64ToParams(id), nil)
+func (api *CustomerApi) ShowCustomerAccount(ctx context.Context, id int64) client.Response[management_models.CustomerAccount] {
+	body, err := api.c.Get(ctx, "customer-accounts/{id}", id64ToParams(id), nil)
 	return client.NewResponse[management_models.CustomerAccount](body, err)
 }
 
-func (api *CustomerApi) CreateCustomerAccount(request management_request.CreateCustomerAccountRequest) client.Response[management_models.CustomerAccount] {
-	body, err := api.c.Post("customer-accounts", nil, request)
+func (api *CustomerApi) CreateCustomerAccount(ctx context.Context, request management_request.CreateCustomerAccountRequest) client.Response[management_models.CustomerAccount] {
+	body, err := api.c.Post(ctx, "customer-accounts", nil, request)
 	return client.NewResponse[management_models.CustomerAccount](body, err)
 }
 
-func (api *CustomerApi) EditCustomerAccount(id int64, request management_request.CreateCustomerAccountRequest) client.Response[management_models.CustomerAccount] {
-	body, err := api.c.Patch("customer-accounts/{id}", id64ToParams(id), request)
+func (api *CustomerApi) EditCustomerAccount(ctx context.Context, id int64, request management_request.CreateCustomerAccountRequest) client.Response[management_models.CustomerAccount] {
+	body, err := api.c.Patch(ctx, "customer-accounts/{id}", id64ToParams(id), request)
 	return client.NewResponse[management_models.CustomerAccount](body, err)
 }
 
-func (api *CustomerApi) DeleteCustomerAccount(id int64) error {
-	_, err := api.c.Delete("customer-accounts/{id}", id64ToParams(id))
+func (api *CustomerApi) DeleteCustomerAccount(ctx context.Context, id int64) error {
+	_, err := api.c.Delete(ctx, "customer-accounts/{id}", id64ToParams(id))
 	return err
 }

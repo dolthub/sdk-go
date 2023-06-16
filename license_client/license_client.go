@@ -9,9 +9,9 @@ type LicenseClient struct {
 	LicenseClientConfiguration
 }
 
-func NewLicenseClient(config LicenseClientConfiguration) *LicenseClient {
-	return &LicenseClient{
-		c:                          client.NewClient(config),
+func NewLicenseClient(config LicenseClientConfiguration) LicenseClient {
+	return LicenseClient{
+		c:                          client.NewClient(config, config.Verbose),
 		LicenseClientConfiguration: config,
 	}
 }

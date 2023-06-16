@@ -1,6 +1,7 @@
 package license_client
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
@@ -9,24 +10,24 @@ import (
 	"time"
 )
 
-func (c *LicenseClient) ActivateLicense(request ActivationRequest) client.Response[LicenseResponse] {
+func (c *LicenseClient) ActivateLicense(ctx context.Context, request ActivationRequest) client.Response[LicenseResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Post("activate_license", nil, request)
+	body, err := c.c.Post(ctx, "activate_license", nil, request)
 	return client.NewResponse[LicenseResponse](body, err)
 }
 
-func (c *LicenseClient) DeactivateLicense(request LicenseRequest) error {
+func (c *LicenseClient) DeactivateLicense(ctx context.Context, request LicenseRequest) error {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	_, err := c.c.Post("deactivate_license", nil, request)
+	_, err := c.c.Post(ctx, "deactivate_license", nil, request)
 	return err
 }
 
-func (c *LicenseClient) CheckLicense(request ActivationRequest) client.Response[CheckResponse] {
+func (c *LicenseClient) CheckLicense(ctx context.Context, request ActivationRequest) client.Response[CheckResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Get("check_license", nil, request)
+	body, err := c.c.Get(ctx, "check_license", nil, request)
 	return client.NewResponse[CheckResponse](body, err)
 }
 
@@ -49,109 +50,109 @@ func (c *LicenseClient) GenerateOfflineLicenseRequest(request ActivationRequest,
 	}
 }
 
-func (c *LicenseClient) ActivateOffline(request OfflineRequest) client.Response[LicenseResponse] {
+func (c *LicenseClient) ActivateOffline(ctx context.Context, request OfflineRequest) client.Response[LicenseResponse] {
 	if request.Request != OfflineActivationRequest {
 		err := errors.New("Activate offline request needs to be of activate type")
 		return client.ErrorResponse[LicenseResponse](err)
 	}
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Post("activate_offline", nil, request)
+	body, err := c.c.Post(ctx, "activate_offline", nil, request)
 	return client.NewResponse[LicenseResponse](body, err)
 }
 
-func (c *LicenseClient) DeactivateOffline(request OfflineRequest) error {
+func (c *LicenseClient) DeactivateOffline(ctx context.Context, request OfflineRequest) error {
 	if request.Request != OfflineDeactivationRequest {
 		return errors.New("Deactivate offline request needs to be of deactivate type")
 	}
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	_, err := c.c.Post("deactivate_offline", nil, request)
+	_, err := c.c.Post(ctx, "deactivate_offline", nil, request)
 	return err
 }
 
-func (c *LicenseClient) AddConsumption(request ConsumptionRequest) client.Response[ConsumptionResponse] {
+func (c *LicenseClient) AddConsumption(ctx context.Context, request ConsumptionRequest) client.Response[ConsumptionResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Post("add_consumption", nil, request)
+	body, err := c.c.Post(ctx, "add_consumption", nil, request)
 	return client.NewResponse[ConsumptionResponse](body, err)
 }
 
-func (c *LicenseClient) AddFeatureConsumption(request FeatureConsumptionRequest) client.Response[FeatureConsumptionResponse] {
+func (c *LicenseClient) AddFeatureConsumption(ctx context.Context, request FeatureConsumptionRequest) client.Response[FeatureConsumptionResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Post("add_feature_consumption", nil, request)
+	body, err := c.c.Post(ctx, "add_feature_consumption", nil, request)
 	return client.NewResponse[FeatureConsumptionResponse](body, err)
 }
 
-func (c *LicenseClient) TrialKey(request TrialLicenseRequest) client.Response[TrialKeyResponse] {
+func (c *LicenseClient) TrialKey(ctx context.Context, request TrialLicenseRequest) client.Response[TrialKeyResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Get("trial_key", nil, request)
+	body, err := c.c.Get(ctx, "trial_key", nil, request)
 	return client.NewResponse[TrialKeyResponse](body, err)
 }
 
-func (c *LicenseClient) ProductDetails() client.Response[ProductDetails] {
+func (c *LicenseClient) ProductDetails(ctx context.Context) client.Response[ProductDetails] {
 	request := ProductDetailsRequest{Product: c.ProductCode}
-	body, err := c.c.Get("product_details", nil, request)
+	body, err := c.c.Get(ctx, "product_details", nil, request)
 	return client.NewResponse[ProductDetails](body, err)
 }
 
-func (c *LicenseClient) TrackDeviceVariables(request DeviceVariablesRequest) error {
+func (c *LicenseClient) TrackDeviceVariables(ctx context.Context, request DeviceVariablesRequest) error {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	_, err := c.c.Post("track_device_variables", nil, request)
+	_, err := c.c.Post(ctx, "track_device_variables", nil, request)
 	return err
 }
 
-func (c *LicenseClient) GetDeviceVariables(request LicenseRequest) client.Response[[]DeviceVariable] {
+func (c *LicenseClient) GetDeviceVariables(ctx context.Context, request LicenseRequest) client.Response[[]DeviceVariable] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Get("get_device_variables", nil, request)
+	body, err := c.c.Get(ctx, "get_device_variables", nil, request)
 	return client.NewResponse[[]DeviceVariable](body, err)
 }
 
-func (c *LicenseClient) FloatingBorrow(request FloatingBorrowRequest) client.Response[FloatingBorrowResponse] {
+func (c *LicenseClient) FloatingBorrow(ctx context.Context, request FloatingBorrowRequest) client.Response[FloatingBorrowResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Post("floating/borrow", nil, request)
+	body, err := c.c.Post(ctx, "floating/borrow", nil, request)
 	return client.NewResponse[FloatingBorrowResponse](body, err)
 }
 
-func (c *LicenseClient) FloatingRelease(request LicenseRequest) error {
+func (c *LicenseClient) FloatingRelease(ctx context.Context, request LicenseRequest) error {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	_, err := c.c.Post("floating/release", nil, request)
+	_, err := c.c.Post(ctx, "floating/release", nil, request)
 	return err
 }
 
-func (c *LicenseClient) ChangePassword(request ChangePasswordRequest) error {
-	_, err := c.c.Post("change_password", nil, request)
+func (c *LicenseClient) ChangePassword(ctx context.Context, request ChangePasswordRequest) error {
+	_, err := c.c.Post(ctx, "change_password", nil, request)
 	return err
 }
 
-func (c *LicenseClient) Versions(request LicenseRequest) client.Response[[]Version] {
+func (c *LicenseClient) Versions(ctx context.Context, request LicenseRequest) client.Response[[]Version] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Get("versions", nil, request)
+	body, err := c.c.Get(ctx, "versions", nil, request)
 	return client.NewResponse[[]Version](body, err)
 }
 
-func (c *LicenseClient) InstallationFile(request LicenseRequest) client.Response[InstallationFileResponse] {
+func (c *LicenseClient) InstallationFile(ctx context.Context, request LicenseRequest) client.Response[InstallationFileResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
-	body, err := c.c.Get("installation_file", nil, request)
+	body, err := c.c.Get(ctx, "installation_file", nil, request)
 	return client.NewResponse[InstallationFileResponse](body, err)
 }
 
-func (c *LicenseClient) CustomerLicenseUsers(request CustomerLicenseUsersRequest) client.Response[CustomerLicenseUsersResponse] {
+func (c *LicenseClient) CustomerLicenseUsers(ctx context.Context, request CustomerLicenseUsersRequest) client.Response[CustomerLicenseUsersResponse] {
 	request.Product = c.ProductCode
-	body, err := c.c.Get("customer_license_users", nil, request)
+	body, err := c.c.Get(ctx, "customer_license_users", nil, request)
 	return client.NewResponse[CustomerLicenseUsersResponse](body, err)
 }
 
-func (c *LicenseClient) SSOUrl(request SSOUrlRequest) client.Response[SSOUrlResponse] {
+func (c *LicenseClient) SSOUrl(ctx context.Context, request SSOUrlRequest) client.Response[SSOUrlResponse] {
 	request.Product = c.ProductCode
-	body, err := c.c.Get("sso_url", nil, request)
+	body, err := c.c.Get(ctx, "sso_url", nil, request)
 	return client.NewResponse[SSOUrlResponse](body, err)
 }

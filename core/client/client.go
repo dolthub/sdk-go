@@ -1,12 +1,12 @@
 package client
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"gitlab.com/l3178/sdk-go/core/configuration"
 	"gitlab.com/l3178/sdk-go/core/helpers"
-	"log"
 	"time"
 )
 
@@ -15,13 +15,14 @@ type Client struct {
 	config configuration.Config
 }
 
-func (c *Client) Get(endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
+func (c *Client) Get(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
 	values, err := helpers.Values(data)
 	if err != nil {
 		return nil, err
 	}
 
 	req := c.c.R().
+		SetContext(ctx).
 		SetPathParams(pathParams).
 		SetQueryParamsFromValues(values).
 		SetHeaders(c.buildHeaders())
@@ -29,32 +30,30 @@ func (c *Client) Get(endpoint string, pathParams map[string]string, data interfa
 	return c.send(endpoint, resty.MethodGet, req)
 }
 
-func (c *Client) Post(endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
+func (c *Client) Post(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
 	req := c.c.R().
+		SetContext(ctx).
 		SetPathParams(pathParams).
 		SetBody(data).
 		SetHeaders(c.buildHeaders())
 	return c.send(endpoint, resty.MethodPost, req)
 }
 
-func (c *Client) Patch(endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
+func (c *Client) Patch(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
 	req := c.c.R().
+		SetContext(ctx).
 		SetPathParams(pathParams).
 		SetBody(data).
 		SetHeaders(c.buildHeaders())
 	return c.send(endpoint, resty.MethodPatch, req)
 }
 
-func (c *Client) Delete(endpoint string, pathParams map[string]string) ([]byte, error) {
+func (c *Client) Delete(ctx context.Context, endpoint string, pathParams map[string]string) ([]byte, error) {
 	req := c.c.R().
+		SetContext(ctx).
 		SetPathParams(pathParams).
 		SetHeaders(c.buildHeaders())
 	return c.send(endpoint, resty.MethodDelete, req)
-}
-
-type errorResponse struct {
-	Code    string `json:"code"`
-	Message string `json:"message"`
 }
 
 func (c *Client) send(endpoint, method string, req *resty.Request) ([]byte, error) {
@@ -66,34 +65,25 @@ func (c *Client) send(endpoint, method string, req *resty.Request) ([]byte, erro
 	}
 
 	if resp.StatusCode() > 299 {
-		var errResp errorResponse
-		err = json.Unmarshal(resp.Body(), &errResp)
-		if err != nil {
-			log.Panic(err)
+		m := make(map[string]interface{})
+		jsonErr := json.Unmarshal(resp.Body(), &m)
+		if jsonErr != nil {
+			return nil, errors.New("unable to unmarshal JSON")
 		}
-		return nil, errors.New(errResp.Message)
-	}
-
-	if !isJSON(resp.Body()) {
-		return nil, nil
+		return nil, errors.New(m["message"].(string))
 	}
 
 	return resp.Body(), nil
-}
-
-func isJSON(str []byte) bool {
-	var js json.RawMessage
-	return json.Unmarshal(str, &js) == nil
 }
 
 func (c *Client) buildUrl(endpoint string) string {
 	return c.config.UrlPrefix() + endpoint
 }
 
-func NewClient(config configuration.Config) *Client {
+func NewClient(config configuration.Config, verbose bool) *Client {
 	requestConfig := config.GetRequestConfig()
 	c := resty.New()
-	c.Debug = true
+	c.Debug = verbose
 	c.SetRetryCount(requestConfig.RetryCount)
 	c.SetTimeout(time.Duration(requestConfig.RequestTimeout) * time.Second)
 	return &Client{

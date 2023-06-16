@@ -3,6 +3,7 @@ package license_client
 import (
 	"encoding/base64"
 	"encoding/json"
+	"gitlab.com/l3178/sdk-go/core/auth"
 	core_models "gitlab.com/l3178/sdk-go/core/models"
 	core_request "gitlab.com/l3178/sdk-go/core/models/request"
 	"time"
@@ -15,7 +16,7 @@ type FeatureConsumptionRequest = core_request.FeatureConsumptionRequest
 type TrialLicenseRequest = core_request.TrialLicenseRequest
 type ProductDetailsRequest = core_request.ProductDetailsRequest
 type DeviceVariablesRequest = core_request.DeviceVariablesRequest
-type Auth = core_request.Auth
+type Auth = auth.Auth
 
 type OfflineRequest struct {
 	ActivationRequest
@@ -65,7 +66,7 @@ type FloatingBorrowResponse struct {
 }
 
 type ChangePasswordRequest struct {
-	core_request.PasswordAuth
+	auth.BasicAuth
 	NewPassword string `json:"new_password,omitempty"`
 }
 

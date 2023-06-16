@@ -30,6 +30,6 @@ func (api ManagementClient) ProductApi() *ProductApi {
 
 func NewManagementClient(config ManagementClientConfiguration) ManagementClient {
 	return ManagementClient{
-		c: client.NewClient(config),
+		c: client.NewClient(config, config.Verbose),
 	}
 }
