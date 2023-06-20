@@ -15,3 +15,16 @@ func NewLicenseClient(config LicenseClientConfiguration) LicenseClient {
 		LicenseClientConfiguration: config,
 	}
 }
+
+type AirgapClient struct {
+	LicenseClient
+	PublicKey string
+}
+
+func NewAirgapClient(config LicenseClientConfiguration, publicKey string) AirgapClient {
+	lc := NewLicenseClient(config)
+	return AirgapClient{
+		LicenseClient: lc,
+		PublicKey:     publicKey,
+	}
+}

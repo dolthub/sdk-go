@@ -31,6 +31,8 @@ type LicenseClientConfiguration struct {
 
 	AppName    string
 	AppVersion string
+
+	VerifySignature bool
 }
 
 func (config LicenseClientConfiguration) AuthHeader(date time.Time) string {
@@ -70,5 +72,6 @@ func NewLicenseClientConfiguration(apiKey, sharedKey, productCode string) Licens
 		SharedKey:         sharedKey,
 		ProductCode:       productCode,
 		HardwareId:        hardwareId,
+		VerifySignature:   true,
 	}
 }

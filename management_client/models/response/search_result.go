@@ -2,6 +2,7 @@ package management_response
 
 import (
 	"encoding/json"
+	"github.com/go-resty/resty/v2"
 )
 
 type SearchResult[T any] struct {
@@ -12,12 +13,12 @@ type SearchResult[T any] struct {
 	Error    error
 }
 
-func SearchResultFromJson[T any](jsn []byte, err error) SearchResult[T] {
+func SearchResultFromJson[T any](resp *resty.Response, err error) SearchResult[T] {
 	if err != nil {
 		return errorSearchResult[T](err)
 	}
 	res := SearchResult[T]{}
-	unmarshalError := json.Unmarshal(jsn, &res)
+	unmarshalError := json.Unmarshal(resp.Body(), &res)
 	if unmarshalError != nil {
 		return errorSearchResult[T](err)
 	}

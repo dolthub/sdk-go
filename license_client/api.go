@@ -3,17 +3,26 @@ package license_client
 import (
 	"context"
 	"encoding/json"
+	"github.com/go-resty/resty/v2"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
+	"gitlab.com/l3178/sdk-go/core/auth"
 	"gitlab.com/l3178/sdk-go/core/client"
 	. "gitlab.com/l3178/sdk-go/core/models"
 	"time"
+)
+
+const (
+	signatureHeader = "LicenseSignature"
 )
 
 func (c *LicenseClient) ActivateLicense(ctx context.Context, request ActivationRequest) client.Response[LicenseResponse] {
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
 	body, err := c.c.Post(ctx, "activate_license", nil, request)
+	if c.verifySignature(body) != nil {
+		return client.ErrorResponse[LicenseResponse](err)
+	}
 	return client.NewResponse[LicenseResponse](body, err)
 }
 
@@ -28,6 +37,9 @@ func (c *LicenseClient) CheckLicense(ctx context.Context, request ActivationRequ
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
 	body, err := c.c.Get(ctx, "check_license", nil, request)
+	if c.verifySignature(body) != nil {
+		return client.ErrorResponse[CheckResponse](err)
+	}
 	return client.NewResponse[CheckResponse](body, err)
 }
 
@@ -58,6 +70,9 @@ func (c *LicenseClient) ActivateOffline(ctx context.Context, request OfflineRequ
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
 	body, err := c.c.Post(ctx, "activate_offline", nil, request)
+	if c.verifySignature(body) != nil {
+		return client.ErrorResponse[LicenseResponse](err)
+	}
 	return client.NewResponse[LicenseResponse](body, err)
 }
 
@@ -155,4 +170,12 @@ func (c *LicenseClient) SSOUrl(ctx context.Context, request SSOUrlRequest) clien
 	request.Product = c.ProductCode
 	body, err := c.c.Get(ctx, "sso_url", nil, request)
 	return client.NewResponse[SSOUrlResponse](body, err)
+}
+
+func (c *LicenseClient) verifySignature(resp *resty.Response) error {
+	signature := resp.Header().Get(signatureHeader)
+	if c.VerifySignature {
+		return auth.VerifySignatureV2(signature, string(resp.Body()))
+	}
+	return nil
 }

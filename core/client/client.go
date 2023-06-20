@@ -15,7 +15,7 @@ type Client struct {
 	config configuration.Config
 }
 
-func (c *Client) Get(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
+func (c *Client) Get(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) (*resty.Response, error) {
 	values, err := helpers.Values(data)
 	if err != nil {
 		return nil, err
@@ -30,7 +30,7 @@ func (c *Client) Get(ctx context.Context, endpoint string, pathParams map[string
 	return c.send(endpoint, resty.MethodGet, req)
 }
 
-func (c *Client) Post(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
+func (c *Client) Post(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) (*resty.Response, error) {
 	req := c.c.R().
 		SetContext(ctx).
 		SetPathParams(pathParams).
@@ -39,7 +39,7 @@ func (c *Client) Post(ctx context.Context, endpoint string, pathParams map[strin
 	return c.send(endpoint, resty.MethodPost, req)
 }
 
-func (c *Client) Patch(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) ([]byte, error) {
+func (c *Client) Patch(ctx context.Context, endpoint string, pathParams map[string]string, data interface{}) (*resty.Response, error) {
 	req := c.c.R().
 		SetContext(ctx).
 		SetPathParams(pathParams).
@@ -48,7 +48,7 @@ func (c *Client) Patch(ctx context.Context, endpoint string, pathParams map[stri
 	return c.send(endpoint, resty.MethodPatch, req)
 }
 
-func (c *Client) Delete(ctx context.Context, endpoint string, pathParams map[string]string) ([]byte, error) {
+func (c *Client) Delete(ctx context.Context, endpoint string, pathParams map[string]string) (*resty.Response, error) {
 	req := c.c.R().
 		SetContext(ctx).
 		SetPathParams(pathParams).
@@ -56,7 +56,7 @@ func (c *Client) Delete(ctx context.Context, endpoint string, pathParams map[str
 	return c.send(endpoint, resty.MethodDelete, req)
 }
 
-func (c *Client) send(endpoint, method string, req *resty.Request) ([]byte, error) {
+func (c *Client) send(endpoint, method string, req *resty.Request) (*resty.Response, error) {
 	req.URL = c.buildUrl(endpoint)
 	req.Method = method
 	resp, err := req.Send()
@@ -73,7 +73,7 @@ func (c *Client) send(endpoint, method string, req *resty.Request) ([]byte, erro
 		return nil, errors.New(m["message"].(string))
 	}
 
-	return resp.Body(), nil
+	return resp, nil
 }
 
 func (c *Client) buildUrl(endpoint string) string {
