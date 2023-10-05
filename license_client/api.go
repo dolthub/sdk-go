@@ -20,7 +20,7 @@ func (c *LicenseClient) ActivateLicense(ctx context.Context, request ActivationR
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
 	body, err := c.c.Post(ctx, "activate_license", nil, request)
-	if c.verifySignature(body) != nil {
+	if body != nil && c.verifySignature(body) != nil {
 		return client.ErrorResponse[LicenseResponse](err)
 	}
 	return client.NewResponse[LicenseResponse](body, err)
@@ -37,7 +37,7 @@ func (c *LicenseClient) CheckLicense(ctx context.Context, request ActivationRequ
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
 	body, err := c.c.Get(ctx, "check_license", nil, request)
-	if c.verifySignature(body) != nil {
+	if body != nil && c.verifySignature(body) != nil {
 		return client.ErrorResponse[CheckResponse](err)
 	}
 	return client.NewResponse[CheckResponse](body, err)
@@ -70,7 +70,7 @@ func (c *LicenseClient) ActivateOffline(ctx context.Context, request OfflineRequ
 	request.Product = c.ProductCode
 	request.HardwareId = c.HardwareId
 	body, err := c.c.Post(ctx, "activate_offline", nil, request)
-	if c.verifySignature(body) != nil {
+	if body != nil && c.verifySignature(body) != nil {
 		return client.ErrorResponse[LicenseResponse](err)
 	}
 	return client.NewResponse[LicenseResponse](body, err)
