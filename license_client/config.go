@@ -64,8 +64,23 @@ func (config LicenseClientConfiguration) UrlPrefix() string {
 func NewLicenseClientConfiguration(apiKey, sharedKey, productCode string) LicenseClientConfiguration {
 	config := configuration.NewClientConfig(baseUrl, apiPrefix)
 
-	hardwareId, _ := machineid.ProtectedID(configuration.SdkName)
+	hardwareId, err := machineid.ProtectedID(configuration.SdkName)
+	if err != nil {
+		panic(err)
+	}
 
+	return LicenseClientConfiguration{
+		CoreConfiguration: config,
+		ApiKey:            apiKey,
+		SharedKey:         sharedKey,
+		ProductCode:       productCode,
+		HardwareId:        hardwareId,
+		VerifySignature:   true,
+	}
+}
+
+func NewLicenseClientConfigurationWithHardwareId(apiKey, sharedKey, productCode, hardwareId string) LicenseClientConfiguration {
+	config := configuration.NewClientConfig(baseUrl, apiPrefix)
 	return LicenseClientConfiguration{
 		CoreConfiguration: config,
 		ApiKey:            apiKey,
