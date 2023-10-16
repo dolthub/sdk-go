@@ -78,3 +78,15 @@ func NewLicenseClientConfiguration(apiKey, sharedKey, productCode string) Licens
 		VerifySignature:   true,
 	}
 }
+
+func NewLicenseClientConfigurationWithHardwareId(apiKey, sharedKey, productCode, hardwareId string) LicenseClientConfiguration {
+	config := configuration.NewClientConfig(baseUrl, apiPrefix)
+	return LicenseClientConfiguration{
+		CoreConfiguration: config,
+		ApiKey:            apiKey,
+		SharedKey:         sharedKey,
+		ProductCode:       productCode,
+		HardwareId:        hardwareId,
+		VerifySignature:   true,
+	}
+}
